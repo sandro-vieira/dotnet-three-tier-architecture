@@ -5,12 +5,12 @@ namespace DevIO.Business.Interfaces;
 
 public interface IRepository<TEntity> : IDisposable where TEntity : Entity
 {
-    Task<TEntity> GetByIdAsync(Guid id);
-    Task<IEnumerable<TEntity>> GetAllAsync();
-    Task AddAsync(TEntity entity);
-    Task UpdateAsync(TEntity entity);
-    Task DeleteAsync(Guid id);
-    Task<bool> ExistsAsync(Guid id);
-    Task<int> SaveChangesAsync();
-    Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
+    Task<TEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken);
+    Task AddAsync(TEntity entity, CancellationToken cancellationToken);
+    Task UpdateAsync(TEntity entity, CancellationToken cancellationToken);
+    Task DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken );
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+    Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
 }
