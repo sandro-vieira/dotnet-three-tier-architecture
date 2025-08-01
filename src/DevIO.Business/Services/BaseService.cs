@@ -5,6 +5,11 @@ namespace DevIO.Business.Services;
 
 public abstract class BaseService
 {
+    protected void Notify(string message)
+    {
+        // Method intentionally left empty.
+    }
+
     protected static bool ExecuteValidation<TValidator, TEntity>(TValidator validation, TEntity entity) 
         where TValidator : AbstractValidator<TEntity>
         where TEntity : Entity

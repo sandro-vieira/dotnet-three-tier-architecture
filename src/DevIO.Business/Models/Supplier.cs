@@ -7,4 +7,5 @@ public class Supplier : Entity
     public SupplierType SupplierType { get; set; } = SupplierType.Undefined;
     public Address Address { get; set; } = new();
     public bool IsActive { get; set; }
+    public IEnumerable<Product> Products { get; set; } = [];
 }
