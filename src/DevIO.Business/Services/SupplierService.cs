@@ -18,7 +18,14 @@ public class SupplierService : BaseService, ISupplierService
             || !ExecuteValidation(new AddressValidation(), supplier.Address))
         {
             return;
-        }   
+        }
+
+        var supplierExists = await _supplierRepository.FindAsync(s => s.Document == supplier.Document, cancellationToken);
+        if (supplierExists.Any())
+        {
+            Notify("There is a supplier with this document number.");
+            return;
+        }
 
         await _supplierRepository.AddAsync(supplier, cancellationToken);
     }
@@ -30,9 +37,41 @@ public class SupplierService : BaseService, ISupplierService
             return;
         }
 
+        var supplierExists = await _supplierRepository.FindAsync(s => 
+            s.Document == supplier.Document 
+            && s.Id != supplier.Id,
+            cancellationToken);
+        if (supplierExists.Any())
+        {
+            Notify("There is a supplier with this document number.");
+            return;
+        }
+
         await _supplierRepository.UpdateAsync(supplier, cancellationToken);
     }
-    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken) => await _supplierRepository.DeleteAsync(id, cancellationToken);
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var supplier = await _supplierRepository.GetSupplierProductsAddressAsync(id, cancellationToken);
+        
+        if (supplier == null)
+        {
+            Notify("Supplier not found.");
+            return;
+        }
+
+        if (supplier.Products.Any())
+        {
+            Notify("Supplier has registered products.");
+            return;
+        }
+
+        if (supplier.Address != null)
+        {
+            await _supplierRepository.DeleteAddressAsync(supplier.Address, cancellationToken);
+        }
+
+        await _supplierRepository.DeleteAsync(id, cancellationToken);
+    }
 
     protected virtual void Dispose(bool disposing)
     {
