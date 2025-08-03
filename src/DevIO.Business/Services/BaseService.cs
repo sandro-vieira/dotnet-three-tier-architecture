@@ -1,16 +1,28 @@
-﻿using DevIO.Business.Models;
+﻿using DevIO.Business.Interfaces;
+using DevIO.Business.Models;
+using DevIO.Business.Notifications;
 using FluentValidation;
+using FluentValidation.Results;
 
 namespace DevIO.Business.Services;
 
 public abstract class BaseService
 {
-    protected void Notify(string message)
+    private readonly INotificator _notificator;
+
+    protected BaseService(INotificator notificator) => _notificator = notificator;
+
+    protected void Notify(ValidationResult validationResult)
     {
-        // Method intentionally left empty.
+        foreach (var error in validationResult.Errors)
+        {
+            Notify(error.ErrorMessage);
+        }
     }
 
-    protected static bool ExecuteValidation<TValidator, TEntity>(TValidator validation, TEntity entity) 
+    protected void Notify(string message) => _notificator.Handle(new Notification(message));
+
+    protected bool ExecuteValidation<TValidator, TEntity>(TValidator validation, TEntity entity)
         where TValidator : AbstractValidator<TEntity>
         where TEntity : Entity
     {
@@ -21,10 +33,8 @@ public abstract class BaseService
             return true;
         }
 
-        foreach (var error in result.Errors)
-        {
-            Console.WriteLine($"Property: {error.PropertyName}, Error: {error.ErrorMessage}");
-        }
+        Notify(result);
+
         return false;
     }
 }

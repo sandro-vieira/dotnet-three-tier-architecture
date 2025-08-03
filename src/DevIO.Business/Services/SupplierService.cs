@@ -9,11 +9,11 @@ public class SupplierService : BaseService, ISupplierService
     private readonly ISupplierRepository _supplierRepository;
     private bool _disposed;
 
-    public SupplierService(ISupplierRepository supplierRepository)
-        => _supplierRepository = supplierRepository;
+    public SupplierService(ISupplierRepository supplierRepository, INotificator notificator)
+        : base(notificator) => _supplierRepository = supplierRepository;
 
     public async Task AddAsync(Supplier supplier, CancellationToken cancellationToken)
-    { 
+    {
         if (!ExecuteValidation(new SupplierValidation(), supplier)
             || !ExecuteValidation(new AddressValidation(), supplier.Address))
         {
@@ -37,8 +37,8 @@ public class SupplierService : BaseService, ISupplierService
             return;
         }
 
-        var supplierExists = await _supplierRepository.FindAsync(s => 
-            s.Document == supplier.Document 
+        var supplierExists = await _supplierRepository.FindAsync(s =>
+            s.Document == supplier.Document
             && s.Id != supplier.Id,
             cancellationToken);
         if (supplierExists.Any())
@@ -52,7 +52,7 @@ public class SupplierService : BaseService, ISupplierService
     public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
         var supplier = await _supplierRepository.GetSupplierProductsAddressAsync(id, cancellationToken);
-        
+
         if (supplier == null)
         {
             Notify("Supplier not found.");
