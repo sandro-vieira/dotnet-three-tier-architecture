@@ -9,8 +9,8 @@ public class ProductService : BaseService, IProductService
     private readonly IProductRepository _productRepository;
     private bool _disposed;
 
-    public ProductService(IProductRepository productRepository)
-        => _productRepository = productRepository;
+    public ProductService(IProductRepository productRepository, INotificator notificator)
+        : base(notificator) => _productRepository = productRepository;
 
     public async Task AddAsync(Product product, CancellationToken cancellationToken)
     {
@@ -45,7 +45,7 @@ public class ProductService : BaseService, IProductService
     }
 
     public void Dispose()
-    { 
+    {
         Dispose(true);
         GC.SuppressFinalize(this);
     }
