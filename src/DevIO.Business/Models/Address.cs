@@ -9,4 +9,9 @@ public class Address : Entity
     public string District { get; set; } = string.Empty;
     public string City { get; set; } = string.Empty;
     public string State { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Entity Framework relationship
+    /// </summary>
+    public Supplier Supplier { get; set; } = new();
 }
