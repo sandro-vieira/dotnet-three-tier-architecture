@@ -30,3 +30,26 @@ Install-Package Microsoft.EntityFrameworkCore
 Install-Package Microsoft.EntityFrameworkCore.Relational
 Install-Package Microsoft.EntityFrameworkCore.SqlServer
 ```
+
+Install the Entity Framework Core tools into the DevIO.Data project.
+- Using the NuGet Package Manager Console within Visual Studio run the following command:
+```
+Install-Package Microsoft.EntityFrameworkCore.Tools
+```
+
+Install the Entity Framework Core Design package into the DevIO.Api project.
+- Using the NuGet Package Manager Console within Visual Studio run the following command:
+```
+Install-Package Microsoft.EntityFrameworkCore.Design
+```
+
+Command to create the initial migration:
+```
+Add-Migration InitialMigration
+```
+
+Command to update the database:
+```
+update-database
+```
+:information_source: Note: We will use the local SQL Server installed by default by Visual Studio. *"Server=(localdb)\\mssqllocaldb"*

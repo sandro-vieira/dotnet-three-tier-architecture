@@ -13,5 +13,6 @@ public class Address : Entity
     /// <summary>
     /// Entity Framework relationship
     /// </summary>
+    public Guid SupplierId { get; set; }
     public Supplier Supplier { get; set; } = new();
 }
