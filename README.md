@@ -5,8 +5,10 @@
 
 ### How to work with validation
 
+Install the FluentValidation package into the DevIO.Business project.
+
 - Using [FluentValidation](https://docs.fluentvalidation.net/en/latest/)
-    - Using the NuGet package manager console within Visual Studio run the following command:
+    - Using the NuGet Package Manager Console within Visual Studio run the following command:
     ```
     Install-Package FluentValidation
     ```
@@ -15,6 +17,39 @@
     dotnet add package FluentValidation
     ```
 
-Install the FluentValidation package into the DevIO.Business project.
 
 :information_source: Note: We are installing this package directly into the Business project because FluentValidation only depends on the .Net Framework and no other external libraries.
+
+## Module 04 - Developing the Data Access Layer
+
+Install the Entity Framework Core packages into the DevIO.Data project.
+
+- Using the NuGet Package Manager Console within Visual Studio run the following command:
+```
+Install-Package Microsoft.EntityFrameworkCore
+Install-Package Microsoft.EntityFrameworkCore.Relational
+Install-Package Microsoft.EntityFrameworkCore.SqlServer
+```
+
+Install the Entity Framework Core tools into the DevIO.Data project.
+- Using the NuGet Package Manager Console within Visual Studio run the following command:
+```
+Install-Package Microsoft.EntityFrameworkCore.Tools
+```
+
+Install the Entity Framework Core Design package into the DevIO.Api project.
+- Using the NuGet Package Manager Console within Visual Studio run the following command:
+```
+Install-Package Microsoft.EntityFrameworkCore.Design
+```
+
+Command to create the initial migration:
+```
+Add-Migration InitialMigration
+```
+
+Command to update the database:
+```
+update-database
+```
+:information_source: Note: We will use the local SQL Server installed by default by Visual Studio. *"Server=(localdb)\\mssqllocaldb"*
