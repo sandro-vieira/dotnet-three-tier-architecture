@@ -28,7 +28,7 @@ public abstract class CustomController : ControllerBase
         }
         return BadRequest(new
         {
-            Errors = _notificator.GetNotifications().Select(n => n.Message)
+            errors = _notificator.GetNotifications().Select(n => n.Message)
         });
     }
 
