@@ -1,0 +1,35 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DevIO.Api.ViewModels;
+
+public class AddressViewModel
+{
+    public required Guid Id { get; set; }
+    public required Guid SupplierId { get; set; }
+
+    [Required(ErrorMessage = "The field {0} is required")]
+    [StringLength(200, ErrorMessage = "The field {0} needs to have between {2} and {1} characters", MinimumLength = 2)]
+    public string Street { get; set; }
+
+    [Required(ErrorMessage = "The field {0} is required")]
+    [StringLength(50, ErrorMessage = "The field {0} needs to have between {2} and {1} characters", MinimumLength = 1)]
+    public string Number { get; set; }
+    
+    public string Complement { get; set; }
+
+    [Required(ErrorMessage = "The field {0} is required")]
+    [StringLength(8, ErrorMessage = "The field {0} needs to have {1} characters", MinimumLength = 8)]
+    public string ZipCode { get; set; }
+
+    [Required(ErrorMessage = "The field {0} is required")]
+    [StringLength(100, ErrorMessage = "The field {0} needs to have between {2} and {1} characters", MinimumLength = 2)]
+    public string Neighborhood { get; set; }
+
+    [Required(ErrorMessage = "The field {0} is required")]
+    [StringLength(100, ErrorMessage = "The field {0} needs to have between {2} and {1} characters", MinimumLength = 2)]
+    public string City { get; set; }
+
+    [Required(ErrorMessage = "The field {0} is required")]
+    [StringLength(50, ErrorMessage = "The field {0} needs to have between {2} and {1} characters", MinimumLength = 2)]
+    public string State { get; set; }
+}

@@ -1,0 +1,27 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DevIO.Api.ViewModels;
+
+public class ProductViewModel
+{
+    public required Guid Id { get; set; }
+
+    [Required(ErrorMessage = "The field {0} is required")]
+    public required Guid SupplierId { get; set; }
+
+    [Required(ErrorMessage = "The field {0} is required")]
+    [StringLength(200, ErrorMessage = "The field {0} needs to have between {2} and {1} characters", MinimumLength = 2)]
+    public string Name { get; set; }
+
+    [Required(ErrorMessage = "The field {0} is required")]
+    [StringLength(1000, ErrorMessage = "The field {0} needs to have between {2} and {1} characters", MinimumLength = 2)]
+    public string Description { get; set; }
+
+    [Required(ErrorMessage = "The field {0} is required")]
+    public required decimal Price { get; set; }
+
+    public required DateTime CreatedAt { get; set; }
+    public required bool IsActive { get; set; }
+
+    public string SupplierName { get; set; }
+}
