@@ -62,3 +62,9 @@ Install the AutoMapper packages into the DevIO.Api project.
 Install-Package AutoMapper
 ```
 :information_source: Note: The last free version is *"14.0.0"*
+
+Install the SwaggerUI package into the DevIO.Api project.
+- Using the NuGet Package Manager Console within Visual Studio run the following command:
+```
+Install-Package Swashbuckle.AspNetCore.SwaggerUI
+```
