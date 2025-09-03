@@ -16,7 +16,7 @@ public class SupplierViewModel
     
     public int SupplierType { get; set; }
     
-    public bool Active { get; set; }
+    public bool IsActive { get; set; }
     
     public AddressViewModel Address { get; set; }
     public IEnumerable<ProductViewModel> Products { get; set; }
