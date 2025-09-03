@@ -1,6 +1,8 @@
 # dotnet-three-tier-architecture
  "Three-tier architecture not only remains relevant, but is widely adopted and recommended for most applications. It offers a simplified yet powerful approach, ensuring clear and adaptable interface segregation."
 
+This project is part of the **Designing Three-Tier Architectures** course on [Desenvolvedor.io](https://desenvolvedor.io/).
+The material and classes are in Portuguese (Brazil) by [**Eduardo Pires**](https://desenvolvedor.io/instrutor/eduardo-pires) *(Microsoft Regional Director - MVP)*. For a complete understandig please visit the course page: [Projetando Arquiteturas em Três Camadas](https://desenvolvedor.io/curso/projetando-arquiteturas-em-tres-camadas)
 ## Module 03 - Developing the Business Layer
 
 ### How to work with validation
