@@ -21,7 +21,7 @@ public class ProductViewModel
     public decimal Price { get; set; }
 
     public DateTime CreatedAt { get; set; }
-    public bool Active { get; set; }
+    public bool IsActive { get; set; }
 
     public string SupplierName { get; set; }
 }

@@ -53,3 +53,12 @@ Command to update the database:
 update-database
 ```
 :information_source: Note: We will use the local SQL Server installed by default by Visual Studio. *"Server=(localdb)\\mssqllocaldb"*
+
+## Module 05 - Connecting the Application to the Architecture
+
+Install the AutoMapper packages into the DevIO.Api project.
+- Using the NuGet Package Manager Console within Visual Studio run the following command:
+```
+Install-Package AutoMapper
+```
+:information_source: Note: The last free version is *"14.0.0"*
