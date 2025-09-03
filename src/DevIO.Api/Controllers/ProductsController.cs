@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Net;
+using AutoMapper;
 using DevIO.Api.ViewModels;
 using DevIO.Business.Interfaces;
 using DevIO.Business.Models;
@@ -16,7 +17,8 @@ public class ProductsController : CustomController
     public ProductsController(
         IProductRepository productRepository,
         IProductService productService,
-        IMapper mapper)
+        IMapper mapper,
+        INotificator notificator) : base(notificator)
     {
         _productRepository = productRepository;
         _productService = productService;
@@ -53,7 +55,7 @@ public class ProductsController : CustomController
 
         await _productService.AddAsync(_mapper.Map<Product>(productViewModel), cancellationToken);
 
-        return CustomResponse(productViewModel);
+        return CustomResponse(HttpStatusCode.Created, productViewModel);
     }
 
     [HttpPut("{id:guid}")]
@@ -62,7 +64,7 @@ public class ProductsController : CustomController
         if (id != productViewModel.Id)
         {
             NotifyError("The provided id does not match the product id.");
-            return CustomResponse();
+            return CustomResponse(HttpStatusCode.BadRequest);
         }
 
         if (!ModelState.IsValid)
@@ -85,7 +87,7 @@ public class ProductsController : CustomController
 
         await _productService.UpdateAsync(_mapper.Map<Product>(existingProduct), cancellationToken);
 
-        return CustomResponse();
+        return CustomResponse(HttpStatusCode.NoContent);
     }
 
     [HttpDelete("{id:guid}")]
@@ -99,7 +101,7 @@ public class ProductsController : CustomController
 
         await _productService.DeleteAsync(id, cancellationToken);
 
-        return CustomResponse();
+        return CustomResponse(HttpStatusCode.NoContent);
     }
 
     private async Task<ProductViewModel> GetProductAsync(Guid id, CancellationToken cancellationToken)

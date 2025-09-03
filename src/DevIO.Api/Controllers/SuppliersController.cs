@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Net;
+using AutoMapper;
 using DevIO.Api.ViewModels;
 using DevIO.Business.Interfaces;
 using DevIO.Business.Models;
@@ -16,7 +17,8 @@ public class SuppliersController : CustomController
     public SuppliersController(
         ISupplierRepository supplierRepository,
         ISupplierService supplierService,
-        IMapper mapper)
+        IMapper mapper,
+        INotificator notificator) : base(notificator)
     {
         _supplierRepository = supplierRepository;
         _supplierService = supplierService;
@@ -53,7 +55,7 @@ public class SuppliersController : CustomController
 
         await _supplierService.AddAsync(_mapper.Map<Supplier>(supplierViewModel), cancellationToken);
 
-        return CustomResponse(supplierViewModel);
+        return CustomResponse(HttpStatusCode.Created, supplierViewModel);
     }
 
     [HttpPut("{id:guid}")]
@@ -62,7 +64,7 @@ public class SuppliersController : CustomController
         if (id != supplierViewModel.Id)
         {
             NotifyError("The provided id does not match the supplier id.");
-            return BadRequest();
+            return CustomResponse(HttpStatusCode.BadRequest);
         }
 
         if (!ModelState.IsValid)
@@ -91,7 +93,7 @@ public class SuppliersController : CustomController
 
         await _supplierService.UpdateAsync(_mapper.Map<Supplier>(existingSupplier), cancellationToken);
 
-        return CustomResponse();
+        return CustomResponse(HttpStatusCode.NoContent);
     }
 
     [HttpDelete("{id:guid}")]
@@ -105,7 +107,7 @@ public class SuppliersController : CustomController
 
         await _supplierService.DeleteAsync(id, cancellationToken);
 
-        return CustomResponse();
+        return CustomResponse(HttpStatusCode.NoContent);
     }
 
     private async Task<SupplierViewModel> GetSupplierProductsAddressAsync(Guid id, CancellationToken cancellationToken)

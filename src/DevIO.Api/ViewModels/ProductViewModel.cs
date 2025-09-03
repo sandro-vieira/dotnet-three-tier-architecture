@@ -4,10 +4,10 @@ namespace DevIO.Api.ViewModels;
 
 public class ProductViewModel
 {
-    public Guid Id { get; set; }
+    public required Guid Id { get; set; }
 
     [Required(ErrorMessage = "The field {0} is required")]
-    public Guid SupplierId { get; set; }
+    public required Guid SupplierId { get; set; }
 
     [Required(ErrorMessage = "The field {0} is required")]
     [StringLength(200, ErrorMessage = "The field {0} needs to have between {2} and {1} characters", MinimumLength = 2)]
@@ -18,10 +18,10 @@ public class ProductViewModel
     public string Description { get; set; }
 
     [Required(ErrorMessage = "The field {0} is required")]
-    public decimal Price { get; set; }
+    public required decimal Price { get; set; }
 
-    public DateTime CreatedAt { get; set; }
-    public bool IsActive { get; set; }
+    public required DateTime CreatedAt { get; set; }
+    public required bool IsActive { get; set; }
 
     public string SupplierName { get; set; }
 }
